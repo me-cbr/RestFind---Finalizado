@@ -1,24 +1,18 @@
-{% for restaurant in restaurants %}
 <div class="restaurant restaurant-list-item">
     {% if restaurant.img_restaurant %}
         <div class="restaurant-cover">
-            <a href="{% url 'restaurants:restaurant' restaurant.id %}">
-                <img src="{{ restaurant.img_restaurant.url }}" alt="{{ restaurant.title }}">
-            </a>
+            <img src="{{ restaurant.img_restaurant.url }}" alt="{{ restaurant.title }}">
         </div>
     {% endif %}
     <div class="restaurant-title-container">
         <h2 class="restaurant-title">
-            <a href="{% url 'restaurants:restaurant' restaurant.id %}">
-                {{ restaurant.title }}
-            </a>
+            {{ restaurant.title }}
         </h2>
     </div>
     <div class="restaurant-container">
         <span class="restaurant-type-item">
-                <i class="fas fa-layer-group type-item"></i>
-                <span>{{ restaurant.category.name }}</span>
-            </a>
+            <i class="fas fa-layer-group type-item"></i>
+            <span>{{ restaurant.category.name }}</span>
         </span>
     </div>
     <div class="restaurant-meta-container">
@@ -36,4 +30,3 @@
         </div>
     </div>
 </div>
-{% endfor %}

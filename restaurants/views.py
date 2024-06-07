@@ -3,69 +3,25 @@ from django.http import JsonResponse
 
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from utils.pagination import make_pagination
 
 from .models import *
 from .forms import RestaurantForm
-
-PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 def dashboard(request):
     return render(request, 'restaurants/pages/dashboard.html')
 
 def restaurant(request, id):
     return render(request, 'restaurants/pages/restaurants-view.html', context={
-        'is_detail_page': True,
         'restaurant': get_object_or_404(Restaurant, id=id),
      })
 
 def home(request):
     restaurants = Restaurant.objects.all().order_by('-id')
 
-    page, pagination = make_pagination(request, restaurants, PER_PAGE)
-
     return render(request, 'restaurants/pages/home.html', context={
-        'restaurants': page,  
-        'pagination': pagination,
-    })
-
-def category(request, category_id):
-    restaurants = Restaurant.objects.filter(
-        category_id=category_id
-    ).order_by('-id')
-
-    page, pagination = make_pagination(request, restaurants, PER_PAGE)
-
-    return render(request, 'restaurants/pages/home.html', context={
-        'restaurants': page, 
-        'pagination': pagination,
-        'title': f'{restaurants[0].category.name} - Category | '
-    })
-
-def search(request):
-    search_term = request.GET.get('q', '').strip()
-
-    if not search_term:
-        raise Http404()
-
-    restaurant = Restaurant.objects.filter(
-        Q(
-            Q(title__icontains=search_term) |
-            Q(description__icontains=search_term)
-        )
-    ).order_by('-id')
-
-    page, pagination = make_pagination(request, restaurant, PER_PAGE)
-
-    return render(request, 'restaurants/pages/../base_templates/global/partials/search.html', {
-        'page_title': f'Search for "{search_term}" |',
-        'search_term': search_term,
-        'restaurant': page,
-        'pagination': pagination,
-        'additional_url_query': f'&q={search_term}',
+        'restaurants': restaurants,  
     })
 
 class RestaurantCreateView(CreateView):

@@ -9,5 +9,4 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('restaurants/', views.home, name='home'),
     path('restaurants/add/', RestaurantCreateView.as_view(), name='add'),
-    path('restaurants/<int:id>/', views.restaurant, name='restaurant'),
 ]
