@@ -1,0 +1,14 @@
+{% extends "global/index.html" %}
+
+{% block title %}Restaurantes | {% endblock title %}
+{% block content %}
+    <div class="main-content main-content-list container">
+        {% for restaurant in restaurants %}
+            {% include 'restaurants/partials/restaurant.html' %}
+        {% empty %}
+                <div class="center m-y">
+                    <h1>Não há nenhum restaurante cadastrado!</h1>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

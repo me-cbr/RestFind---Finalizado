@@ -1,0 +1,14 @@
+{% extends "global/index.html" %}
+
+{% block title %}Home | {% endblock title %}
+{% block content %}
+    <div class="main-content-button container">
+        <button class="outline1">
+            <a href="{% url 'restaurants:add' %}">Cadastrar Restaurante</a>
+        </button>
+        <button class="outline2">
+            <a href="{% url 'restaurants:home' %}">Listar Restaurantes</a>
+        </button>
+    </div>
+
+{% endblock content %}
